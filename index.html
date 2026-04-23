@@ -1577,6 +1577,7 @@
           <div class="pcv3-gift-icon">🎁</div>
           <div><div class="pcv3-gift-title">Подарок на выбор</div><div class="pcv3-gift-desc">5G-роутер или смартфон Samsung A07</div></div>
         </div>
+        <div class="pcv3-spacer"></div>
         <div class="pcv3-pricing">
           <div class="pcv3-price-old">14 690 ₸/месяц</div>
           <div class="pcv3-price">11 020 ₸/месяц</div>
@@ -1629,6 +1630,7 @@
           <div class="pcv3-gift-icon">🎁</div>
           <div><div class="pcv3-gift-title">Подарок на выбор</div><div class="pcv3-gift-desc">5G-роутер или смартфон Samsung A07</div></div>
         </div>
+        <div class="pcv3-spacer"></div>
         <div class="pcv3-pricing">
           <div class="pcv3-price-old">19 690 ₸/месяц</div>
           <div class="pcv3-price">14 770 ₸/месяц</div>
@@ -1983,6 +1985,24 @@ function calcSavings() {
 calcSavings();
 document.getElementById('mobileExp').addEventListener('input', calcSavings);
 document.getElementById('internetExp').addEventListener('input', calcSavings);
+
+// ── Домашний интернет toggles ──
+document.querySelectorAll('.pcv3-toggle').forEach(function(toggle) {
+  toggle.addEventListener('click', function() {
+    var card = toggle.closest('.plan-card-v3');
+    var nameEl = card.querySelector('.pcv3-name');
+    var isOn = toggle.classList.toggle('on');
+    var current = nameEl.textContent.trim();
+
+    if (isOn) {
+      // Add "+" if not already present
+      if (!current.endsWith('+')) nameEl.textContent = current + '+';
+    } else {
+      // Remove trailing "+"
+      if (current.endsWith('+')) nameEl.textContent = current.slice(0, -1);
+    }
+  });
+});
 </script>
 </body>
 </html>
