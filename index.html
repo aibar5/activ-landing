@@ -29,6 +29,7 @@
     background: var(--bg-white);
     font-size: 16px;
     line-height: 1.5;
+    overflow-x: hidden;
   }
 
   /* NAV */
@@ -619,10 +620,10 @@
     object-fit: cover;
     pointer-events: none;
   }
-  .promo-left { padding: 40px; }
+  .promo-left { padding: 40px; position: relative; z-index: 1; }
   .promo-title { font-size: 28px; font-weight: 700; line-height: 36px; margin-bottom: 16px; }
   .promo-desc { font-size: 18px; line-height: 26px; color: var(--text-muted); }
-  .promo-right { padding: 20px; }
+  .promo-right { padding: 20px; position: relative; z-index: 1; }
   .promo-offers {
     background: white;
     border-radius: var(--radius-lg);
@@ -1203,6 +1204,109 @@
     transition: background .15s;
   }
   .pcv3-btn-secondary:hover { background: rgb(246,246,246); }
+
+  /* ═══════════════════════════════════════
+     RESPONSIVE FIXES — добавлено по аудиту
+  ═══════════════════════════════════════ */
+
+  /* --- Base: hero text flexible --- */
+  .hero-slide-text {
+    flex: 0 0 50%;
+    min-width: 280px;
+    max-width: 520px;
+  }
+
+  /* --- Tariff cards: min-width so they don't over-shrink --- */
+  .plan-card-v3 { min-width: 220px; }
+
+  /* --- Tariffs section: allow horizontal scroll on narrow screens --- */
+  .tariffs-v3 { overflow-x: auto; }
+  .plan-cards-v3 { min-width: 700px; }
+
+  /* --- How-it-works image sizing --- */
+  .how-step-screen img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
+
+  /* --- Promo card: column on narrow --- */
+
+  /* ── 1024px ── */
+  @media (max-width: 1024px) {
+    nav { padding: 0 32px; }
+    .hero { padding: 40px 32px; }
+    .section { padding: 48px 32px; }
+    .tariffs-v3 { padding: 48px 32px; }
+    .promo { padding: 48px 32px; }
+    .faq { padding: 48px 32px; }
+    footer { padding: 32px 32px 48px; }
+
+    .hero-title { font-size: 32px; line-height: 40px; }
+    .section-title { font-size: 24px; }
+    .section-desc { font-size: 16px; }
+
+    .benefit-cards { grid-template-columns: repeat(2, 1fr); }
+    .how-steps { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+    .calc-card { grid-template-columns: 1fr; }
+
+    .promo-card { grid-template-columns: 1fr; }
+    .promo-right { padding: 0 40px 40px; }
+    .promo-offers { height: auto; }
+  }
+
+  /* ── 768px ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; height: 56px; }
+    .nav-links { display: none; }
+    .nav-logo svg { height: 28px !important; }
+
+    .hero { padding: 20px; }
+    .hero-slide-wrap { height: auto; min-height: 320px; }
+    .hero-slide { flex-direction: column; align-items: flex-start; }
+    .hero-slide-text { flex: none; width: 100%; max-width: 100%; padding: 32px 28px 20px; }
+    .hero-slide-img { width: 100%; flex: none; height: 220px; }
+    .hero-title { font-size: 28px; line-height: 36px; }
+    .hero-desc { font-size: 16px; margin-bottom: 24px; }
+
+    .section { padding: 40px 20px; }
+    .section-title { font-size: 22px; line-height: 28px; }
+    .section-desc { font-size: 15px; margin-bottom: 28px; }
+
+    .benefit-cards { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .benefit-card-img { height: 160px; }
+    .benefit-card-title { font-size: 16px; }
+    .benefit-card-desc { font-size: 13px; }
+
+    .how-steps { grid-template-columns: 1fr; gap: 16px; }
+    .how-step-num { font-size: 48px; }
+
+    .tariffs-v3 { padding: 40px 20px; }
+    .plan-cards-v3 { min-width: 660px; }
+
+    .calc-card { padding: 20px; gap: 20px; }
+    .savings-amount { font-size: 32px; }
+
+    .promo { padding: 20px; }
+    .promo-card { border-radius: 24px; }
+    .promo-left { padding: 28px; }
+    .promo-title { font-size: 22px; }
+    .promo-desc { font-size: 15px; }
+
+    .faq { padding: 40px 20px; }
+    .faq-question { font-size: 14px; }
+
+    footer { padding: 28px 20px 40px; }
+    .footer-app { flex-direction: column; gap: 20px; text-align: center; }
+  }
+
+  /* ── 480px ── */
+  @media (max-width: 480px) {
+    .benefit-cards { grid-template-columns: 1fr; }
+    .hero-slide-img { height: 180px; }
+    .hero-title { font-size: 24px; line-height: 30px; }
+    .plan-cards-v3 { min-width: 600px; }
+    .promo-offers { grid-template-columns: 1fr; }
+    .promo-offer { border-right: none; border-bottom: 1px solid var(--border); }
+    .promo-offer:last-child { border-bottom: none; }
+  }
 
 </style>
 </head>
