@@ -31,6 +31,7 @@
     line-height: 1.5;
     overflow-x: hidden;
   }
+  html { scroll-behavior: smooth; }
 
   /* NAV */
   nav {
@@ -54,6 +55,9 @@
     align-items: center;
     gap: 6px;
   }
+  .brand-logo-img { display: block; height: 36px; width: auto; }
+  .nav-logo svg,
+  .footer-logo svg { display: none; }
   .nav-logo span { color: var(--accent); }
   .nav-links {
     display: flex;
@@ -152,6 +156,13 @@
     align-items: center;
     overflow: hidden;
   }
+  .hero-slide::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
   .hero-slide-text {
     flex: 0 0 480px;
     padding: 48px 48px 48px 56px;
@@ -165,7 +176,13 @@
     justify-content: center;
     overflow: hidden;
   }
-  .hero-slide-1 { background: linear-gradient(135deg, #fff5f8 0%, #ffe6ee 100%); }
+  .hero-slide-1 {
+    background: url('assets/hero-bg.png') center center / cover no-repeat;
+  }
+  .hero-slide-1::before {
+    background: linear-gradient(90deg, rgba(255,255,255,.94) 0%, rgba(255,255,255,.78) 42%, rgba(255,255,255,.2) 72%, rgba(255,255,255,0) 100%);
+  }
+  .hero-slide-1 .hero-slide-img { display: none; }
   .hero-slide-2 { background: linear-gradient(135deg, #f0f0ff 0%, #e0e0ff 100%); }
   .hero-slide-3 { background: linear-gradient(135deg, #f0fff4 0%, #d0ffe0 100%); }
   .hero-text { max-width: 455px; }
@@ -514,6 +531,56 @@
     background: white;
   }
   .calc-input:focus { border-color: var(--accent); }
+  .calc-stepper {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    align-items: center;
+  }
+  .calc-stepper-controls {
+    display: flex;
+    gap: 8px;
+  }
+  .calc-adjust-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    border: 1.5px solid var(--border);
+    background: var(--bg-gray);
+    color: var(--text);
+    font-size: 28px;
+    line-height: 1;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background .15s, transform .1s;
+  }
+  .calc-adjust-btn:hover { background: #ececec; }
+  .calc-adjust-btn:active { transform: scale(.97); }
+  .calc-step-switch {
+    display: inline-flex;
+    align-items: center;
+    background: var(--bg-gray);
+    border-radius: 999px;
+    padding: 4px;
+    gap: 4px;
+    margin-bottom: 14px;
+  }
+  .calc-step-btn {
+    border: none;
+    background: transparent;
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .calc-step-btn.active {
+    background: white;
+    color: var(--text);
+    box-shadow: 0 1px 6px rgba(0,0,0,.08);
+  }
   .calc-group { margin-bottom: 20px; }
   .calc-chips {
     display: flex;
@@ -605,7 +672,7 @@
   /* ── PROMO BANNER ── */
   .promo { padding: 60px; }
   .promo-card {
-    background: var(--bg-gray);
+    background: url('assets/promo-bg-new.png') center center / cover no-repeat;
     border-radius: var(--radius-xl);
     overflow: hidden;
     display: grid;
@@ -1258,13 +1325,35 @@
     .nav-links { display: none; }
     .nav-logo svg { height: 28px !important; }
 
-    .hero { padding: 20px; }
-    .hero-slide-wrap { height: auto; min-height: 320px; }
-    .hero-slide { flex-direction: column; align-items: flex-start; }
-    .hero-slide-text { flex: none; width: 100%; max-width: 100%; padding: 32px 28px 20px; }
-    .hero-slide-img { width: 100%; flex: none; height: 220px; }
-    .hero-title { font-size: 28px; line-height: 36px; }
-    .hero-desc { font-size: 16px; margin-bottom: 24px; }
+    .hero { padding: 8px 10px; }
+    .hero-slide-wrap { height: auto; min-height: 0; border-radius: 20px; }
+    .hero-slide {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+      min-height: 330px;
+    }
+    .hero-slide-1::before {
+      background: linear-gradient(180deg, rgba(255,255,255,.24) 0%, rgba(255,255,255,.18) 44%, rgba(255,255,255,.72) 100%);
+    }
+    .hero-slide-text {
+      flex: none;
+      width: 100%;
+      max-width: 92%;
+      padding: 18px 16px 16px;
+      background: linear-gradient(135deg, rgba(255,255,255,.34), rgba(255,255,255,.16));
+      backdrop-filter: blur(10px) saturate(135%);
+      -webkit-backdrop-filter: blur(10px) saturate(135%);
+      border: 1px solid rgba(255,255,255,.42);
+      box-shadow: 0 10px 24px rgba(17,17,20,.14), inset 0 1px 0 rgba(255,255,255,.55);
+      border-radius: 14px;
+      margin: 0;
+    }
+    .hero-slide-img { width: 100%; flex: none; height: 130px; align-items: center; }
+    .hero-title { font-size: 24px; line-height: 30px; margin-bottom: 10px; text-shadow: 0 1px 0 rgba(255,255,255,.45); }
+    .hero-desc { font-size: 15px; line-height: 22px; margin-bottom: 14px; color: rgba(17,17,20,.92); }
+    .hero-nav { margin-top: 8px; }
+    .arrow-btn { width: 36px; height: 36px; }
 
     .section { padding: 40px 20px; }
     .section-title { font-size: 22px; line-height: 28px; }
@@ -1278,8 +1367,8 @@
     .how-steps { grid-template-columns: 1fr; gap: 16px; }
     .how-step-num { font-size: 48px; }
 
-    .tariffs-v3 { padding: 40px 20px; }
-    .plan-cards-v3 { min-width: 660px; }
+    .tariffs-v3 { padding: 40px 20px; overflow-x: visible; }
+    .plan-cards-v3 { min-width: 0; grid-template-columns: 1fr; }
 
     .calc-card { padding: 20px; gap: 20px; }
     .savings-amount { font-size: 32px; }
@@ -1300,9 +1389,23 @@
   /* ── 480px ── */
   @media (max-width: 480px) {
     .benefit-cards { grid-template-columns: 1fr; }
-    .hero-slide-img { height: 180px; }
-    .hero-title { font-size: 24px; line-height: 30px; }
-    .plan-cards-v3 { min-width: 600px; }
+    .hero { padding: 6px 8px; }
+    .hero-slide-wrap { border-radius: 16px; }
+    .hero-slide { min-height: 300px; }
+    .hero-slide-img { height: 110px; }
+    .hero-slide-1 { background-position: 70% center; }
+    .hero-title { font-size: 22px; line-height: 28px; }
+    .hero-desc { font-size: 14px; line-height: 20px; margin-bottom: 12px; }
+    .hero-slide-text {
+      max-width: 95%;
+      padding: 14px 12px 12px;
+      border-radius: 12px;
+      backdrop-filter: blur(8px) saturate(130%);
+      -webkit-backdrop-filter: blur(8px) saturate(130%);
+    }
+    .hero-nav { margin-top: 8px; }
+    .hero-progress { margin-right: 10px; }
+    .plan-cards-v3 { min-width: 0; }
     .promo-offers { grid-template-columns: 1fr; }
     .promo-offer { border-right: none; border-bottom: 1px solid var(--border); }
     .promo-offer:last-child { border-bottom: none; }
@@ -1315,6 +1418,7 @@
 <!-- NAV -->
 <nav>
   <span class="nav-logo">
+<img src="assets/activ-logo-transparent.png" class="brand-logo-img" alt="activ 5G">
 <svg style="height:36px;width:auto" id="_Слой_2" data-name="Слой 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 457.42 107.58">
   <defs><style>.cls-nav-c1{fill:url(#linear-gradient)}.cls-nav-c2{fill:#111114}</style>
     
@@ -1346,16 +1450,16 @@
   </g>
 </svg></span>
   <ul class="nav-links">
-    <li><a href="#">Тарифы</a></li>
-    <li><a href="#">Семейный</a></li>
-    <li><a href="#">Калькулятор</a></li>
-    <li><a href="#">FAQ</a></li>
+    <li><a href="#tariffs">Тарифы</a></li>
+    <li><a href="#family">Семейный</a></li>
+    <li><a href="#calculator">Калькулятор</a></li>
+    <li><a href="#faq">FAQ</a></li>
   </ul>
   <button class="nav-cta">Выбрать тариф</button>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="hero">
   <div class="hero-slide-wrap" id="heroWrap">
     <div class="hero-slides" id="heroSlides">
 
@@ -1366,9 +1470,7 @@
           <div class="hero-desc">Вы платите один раз и управляете номерами близких</div>
           <button class="btn-primary">Выбрать тариф</button>
         </div>
-        <div class="hero-slide-img">
-          <img src="assets/Banner.png" style="width:100%;height:100%;object-fit:cover;object-position:right center" alt="">
-        </div>
+        <div class="hero-slide-img"></div>
       </div>
 
       <!-- Slide 2 -->
@@ -1408,14 +1510,14 @@
       <div class="hero-progress-bar"><div class="fill" id="fill2"></div></div>
     </div>
     <div class="hero-arrows">
-      <button class="arrow-btn" id="heroPrev">←</button>
-      <button class="arrow-btn" id="heroNext">→</button>
+      <button class="arrow-btn" id="heroPrev" aria-label="Предыдущий слайд">←</button>
+      <button class="arrow-btn" id="heroNext" aria-label="Следующий слайд">→</button>
     </div>
   </div>
 </section>
 
 <!-- WHAT IS FAMILY TARIFF -->
-<section class="section what-is">
+<section class="section what-is" id="family">
   <div class="section-inner">
     <div class="section-title">Что такое семейный тариф?</div>
     <div class="section-desc">Семейный тариф объединяет несколько номеров в один счёт с общими минутами, SMS и интернетом.<br>Глава оплачивает счёт, а вся семья пользуется связью</div>
@@ -1500,7 +1602,7 @@
 </section>
 
 <!-- CHOOSE YOUR PLAN -->
-<section class="tariffs-v3">
+<section class="tariffs-v3" id="tariffs">
   <div class="section-inner">
     <div class="section-title">Выберите свой тариф</div>
     <div class="plan-cards-v3">
@@ -1569,6 +1671,7 @@
             <img src="assets/yandex-plus.svg" style="height:20px;width:auto;display:block" alt="Яндекс Плюс">
           <div class="pcv3-text"><div class="pcv3-title">Яндекс Плюс</div><div class="pcv3-desc">Музыка, кино, книги</div></div>
         </div>
+        <div class="pcv3-spacer"></div>
         <div class="pcv3-internet">
           <div><div class="pcv3-int-label">Домашний интернет</div><div class="pcv3-int-sub">0 ₸ вместо 4 000 ₸</div></div>
           <div class="pcv3-toggle on"></div>
@@ -1577,7 +1680,6 @@
           <div class="pcv3-gift-icon">🎁</div>
           <div><div class="pcv3-gift-title">Подарок на выбор</div><div class="pcv3-gift-desc">5G-роутер или смартфон Samsung A07</div></div>
         </div>
-        <div class="pcv3-spacer"></div>
         <div class="pcv3-pricing">
           <div class="pcv3-price-old">14 690 ₸/месяц</div>
           <div class="pcv3-price">11 020 ₸/месяц</div>
@@ -1615,13 +1717,14 @@
           <div class="pcv3-val">100%</div>
         </div>
         <div class="pcv3-row">
-            <img src="assets/yandex-plus.svg" style="height:20px;width:auto;display:block" alt="Яндекс Плюс">
-          <div class="pcv3-text"><div class="pcv3-title">Яндекс Плюс</div><div class="pcv3-desc">Музыка, кино, книги</div></div>
-        </div>
-        <div class="pcv3-row" style="border-bottom:none">
           <div class="pcv3-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
           <div class="pcv3-text"><div class="pcv3-title">Безопасный интернет</div><div class="pcv3-desc">без 18+, вирусов и фишинга</div></div>
         </div>
+        <div class="pcv3-row" style="border-bottom:none">
+            <img src="assets/yandex-plus.svg" style="height:20px;width:auto;display:block" alt="Яндекс Плюс">
+          <div class="pcv3-text"><div class="pcv3-title">Яндекс Плюс</div><div class="pcv3-desc">Музыка, кино, книги</div></div>
+        </div>
+        <div class="pcv3-spacer"></div>
         <div class="pcv3-internet">
           <div><div class="pcv3-int-label">Домашний интернет</div><div class="pcv3-int-sub">0 ₸ вместо 4 000 ₸</div></div>
           <div class="pcv3-toggle"></div>
@@ -1630,7 +1733,6 @@
           <div class="pcv3-gift-icon">🎁</div>
           <div><div class="pcv3-gift-title">Подарок на выбор</div><div class="pcv3-gift-desc">5G-роутер или смартфон Samsung A07</div></div>
         </div>
-        <div class="pcv3-spacer"></div>
         <div class="pcv3-pricing">
           <div class="pcv3-price-old">19 690 ₸/месяц</div>
           <div class="pcv3-price">14 770 ₸/месяц</div>
@@ -1644,15 +1746,26 @@
 </section>
 
 <!-- CALCULATOR -->
-<section class="section calculator">
+<section class="section calculator" id="calculator">
   <div class="section-inner">
-    <div class="section-title">Расчитайте выгоду</div>
+    <div class="section-title">Рассчитайте выгоду</div>
     <div class="calc-card">
       <!-- Left: inputs -->
       <div>
+        <div class="calc-label">Шаг изменения суммы</div>
+        <div class="calc-step-switch" id="stepSwitch">
+          <button type="button" class="calc-step-btn active" data-step="1000">1 000 ₸</button>
+          <button type="button" class="calc-step-btn" data-step="5000">5 000 ₸</button>
+        </div>
         <div class="calc-group">
           <div class="calc-label">Текущие расходы на мобильную связь (₸/мес)</div>
-          <input class="calc-input" id="mobileExp" type="number" placeholder="20 000" value="20000">
+          <div class="calc-stepper">
+            <input class="calc-input" id="mobileExp" type="number" step="1000" min="0" placeholder="20 000" value="20000">
+            <div class="calc-stepper-controls">
+              <button type="button" class="calc-adjust-btn" data-target="mobileExp" data-dir="-1" aria-label="Уменьшить мобильные расходы">−</button>
+              <button type="button" class="calc-adjust-btn" data-target="mobileExp" data-dir="1" aria-label="Увеличить мобильные расходы">+</button>
+            </div>
+          </div>
         </div>
         <div class="calc-group">
           <div class="calc-label">Количество номеров</div>
@@ -1666,7 +1779,13 @@
         </div>
         <div class="calc-group">
           <div class="calc-label">Плата за домашний интернет (₸/мес)</div>
-          <input class="calc-input" id="internetExp" type="number" placeholder="5 000" value="5000">
+          <div class="calc-stepper">
+            <input class="calc-input" id="internetExp" type="number" step="1000" min="0" placeholder="5 000" value="5000">
+            <div class="calc-stepper-controls">
+              <button type="button" class="calc-adjust-btn" data-target="internetExp" data-dir="-1" aria-label="Уменьшить плату за интернет">−</button>
+              <button type="button" class="calc-adjust-btn" data-target="internetExp" data-dir="1" aria-label="Увеличить плату за интернет">+</button>
+            </div>
+          </div>
         </div>
         <div class="yandex-row">
           <div>
@@ -1675,7 +1794,7 @@
           </div>
           <div class="yandex-toggle" id="yandexToggle"></div>
         </div>
-        <button class="btn-primary" style="width:100%" onclick="calcSavings()">Расчитать выгоду</button>
+        <button class="btn-primary" style="width:100%" onclick="calcSavings()">Рассчитать выгоду</button>
       </div>
 
       <!-- Right: result -->
@@ -1708,7 +1827,6 @@
 <section class="promo">
   <div class="section-inner" style="max-width:1080px">
     <div class="promo-card">
-      <img src="assets/promo-bg.png" class="promo-card-bg" alt="">
       <div class="promo-left" style="position:relative;z-index:1">
         <div class="promo-title">Подключите Семейный тариф до 31.03.2026г</div>
         <div class="promo-desc">Получите скидку при подключении — действующим и новым абонентам activ</div>
@@ -1734,7 +1852,7 @@
 </section>
 
 <!-- FAQ -->
-<section class="faq">
+<section class="faq" id="faq">
   <div class="section-inner">
     <div class="section-title">Часто задаваемые вопросы</div>
     <div class="faq-list">
@@ -1810,6 +1928,7 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-logo">
+<img src="assets/activ-logo-transparent.png" class="brand-logo-img" alt="activ 5G">
 <svg style="height:44px;width:auto" id="_Слой_2" data-name="Слой 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 457.42 107.58">
   <defs><style>.cls-nav-c1{fill:url(#linear-gradient)}.cls-nav-c2{fill:#111114}</style>
     
@@ -1899,7 +2018,7 @@ function applyTweaks() {
   document.documentElement.style.setProperty('--accent', accent);
   document.documentElement.style.setProperty('--radius-lg', radius + 'px');
 
-  const featured = document.querySelector('.plan-card.featured');
+  const featured = document.querySelector('.plan-card.featured') || document.querySelector('.plan-cards-v3 .plan-card-v3:nth-child(2)');
   if (cards === 'all-light') {
     if (featured) { featured.style.background = 'var(--bg-gray)'; featured.style.color = ''; }
   } else if (cards === 'gradient') {
@@ -1938,12 +2057,43 @@ document.querySelector('.hero').addEventListener('mouseleave', () => { autoTimer
 // ── FAQ ──
 function toggleFaq(btn) {
   const item = btn.closest('.faq-item');
+  document.querySelectorAll('.faq-item.open').forEach(openItem => {
+    if (openItem !== item) openItem.classList.remove('open');
+  });
   item.classList.toggle('open');
 }
 
 // ── CALCULATOR ──
-let lines = 2;
+let lines = parseInt(document.querySelector('.calc-chip.active')?.dataset.val || '2');
 let yandex = false;
+let calcStep = 1000;
+const YANDEX_PLUS_PRICE = 1999;
+const PROMO_MONTHS = 5;
+const REGULAR_MONTHS = 7;
+const TARIFFS = {
+  family_3: { basePrice: 12690, promoPrice: 9520, includesInternet: false, includesYandex: false },
+  family_5: { basePrice: 14690, promoPrice: 11020, includesInternet: true, includesYandex: true },
+  family_7: { basePrice: 19690, promoPrice: 14770, includesInternet: true, includesYandex: true }
+};
+
+function getRecommendedTariff(participantsCount, homeFee) {
+  if (participantsCount > 5) return TARIFFS.family_7;
+  if (participantsCount > 3 || homeFee > 0) return TARIFFS.family_5;
+  return TARIFFS.family_3;
+}
+
+function sanitizeToStep(value) {
+  const num = parseFloat(value);
+  if (isNaN(num) || num < 0) return 0;
+  return Math.round(num / calcStep) * calcStep;
+}
+
+function updateCalcInputsStepUI() {
+  document.querySelectorAll('.calc-input').forEach(input => {
+    input.step = String(calcStep);
+    input.value = sanitizeToStep(input.value);
+  });
+}
 
 document.getElementById('linesChips').addEventListener('click', e => {
   const chip = e.target.closest('.calc-chip');
@@ -1951,40 +2101,111 @@ document.getElementById('linesChips').addEventListener('click', e => {
   document.querySelectorAll('.calc-chip').forEach(c => c.classList.remove('active'));
   chip.classList.add('active');
   lines = parseInt(chip.dataset.val);
+  calcSavings();
 });
 
 document.getElementById('yandexToggle').addEventListener('click', function() {
   yandex = !yandex;
   this.classList.toggle('on', yandex);
+  calcSavings();
+});
+
+document.getElementById('stepSwitch').addEventListener('click', e => {
+  const btn = e.target.closest('.calc-step-btn');
+  if (!btn) return;
+  calcStep = parseInt(btn.dataset.step, 10) || 1000;
+  document.querySelectorAll('.calc-step-btn').forEach(item => item.classList.remove('active'));
+  btn.classList.add('active');
+  updateCalcInputsStepUI();
+  calcSavings();
+});
+
+document.querySelectorAll('.calc-adjust-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const targetId = btn.dataset.target;
+    const dir = parseInt(btn.dataset.dir, 10) || 0;
+    const input = document.getElementById(targetId);
+    if (!input) return;
+    const current = sanitizeToStep(input.value);
+    const next = Math.max(0, current + dir * calcStep);
+    input.value = next;
+    calcSavings();
+  });
 });
 
 function calcSavings() {
   const mobile = parseFloat(document.getElementById('mobileExp').value) || 20000;
   const internet = parseFloat(document.getElementById('internetExp').value) || 5000;
+  const recommendedTariff = getRecommendedTariff(lines, internet);
+  const ourYearlyCost = recommendedTariff.promoPrice * PROMO_MONTHS + recommendedTariff.basePrice * REGULAR_MONTHS;
+  const theirYearlyCost = mobile * 12;
 
-  // Pick plan based on lines
-  let planPrice;
-  if (lines <= 3) planPrice = 9520;
-  else if (lines <= 5) planPrice = 11020;
-  else planPrice = 14770;
-
-  const mobileSav = Math.max(0, (mobile - planPrice) * 12);
-  const internetSav = internet > 0 ? internet * 12 : 0;
-  const yandexSav = yandex ? 1999 * 12 : 0;
-  const total = mobileSav + internetSav + yandexSav;
+  let mobileSav = theirYearlyCost - ourYearlyCost;
+  let internetSav = recommendedTariff.includesInternet ? internet * 12 : 0;
+  let yandexSav = (recommendedTariff.includesYandex && yandex) ? YANDEX_PLUS_PRICE * 12 : 0;
+  const rawTotal = mobileSav + internetSav + yandexSav;
 
   const fmt = n => Math.round(n).toLocaleString('ru-RU') + ' ₸';
 
-  document.getElementById('savingsAmount').textContent = fmt(total);
+  if (rawTotal <= 0) {
+    document.getElementById('savingsAmount').textContent = fmt(0);
+    document.getElementById('savMobile').textContent = fmt(0);
+    document.getElementById('savInternet').textContent = fmt(0);
+    document.getElementById('savYandex').textContent = fmt(0);
+    return;
+  }
+
+  // If mobile communication itself is more expensive, rebalance benefit with included options.
+  if (mobileSav < 0) {
+    let deficit = -mobileSav;
+    mobileSav = 0;
+
+    if (internetSav >= deficit) {
+      internetSav -= deficit;
+      deficit = 0;
+    } else {
+      deficit -= internetSav;
+      internetSav = 0;
+    }
+
+    if (deficit > 0) {
+      if (yandexSav >= deficit) {
+        yandexSav -= deficit;
+      } else {
+        yandexSav = 0;
+      }
+    }
+  }
+
+  document.getElementById('savingsAmount').textContent = fmt(rawTotal);
   document.getElementById('savMobile').textContent = fmt(mobileSav);
   document.getElementById('savInternet').textContent = fmt(internetSav);
   document.getElementById('savYandex').textContent = fmt(yandexSav);
 }
 
 // Run once on load
+updateCalcInputsStepUI();
 calcSavings();
-document.getElementById('mobileExp').addEventListener('input', calcSavings);
-document.getElementById('internetExp').addEventListener('input', calcSavings);
+document.getElementById('mobileExp').addEventListener('input', () => {
+  const input = document.getElementById('mobileExp');
+  input.value = Math.max(0, parseFloat(input.value) || 0);
+  calcSavings();
+});
+document.getElementById('internetExp').addEventListener('input', () => {
+  const input = document.getElementById('internetExp');
+  input.value = Math.max(0, parseFloat(input.value) || 0);
+  calcSavings();
+});
+document.getElementById('mobileExp').addEventListener('blur', () => {
+  const input = document.getElementById('mobileExp');
+  input.value = sanitizeToStep(input.value);
+  calcSavings();
+});
+document.getElementById('internetExp').addEventListener('blur', () => {
+  const input = document.getElementById('internetExp');
+  input.value = sanitizeToStep(input.value);
+  calcSavings();
+});
 
 // ── Домашний интернет toggles ──
 document.querySelectorAll('.pcv3-toggle').forEach(function(toggle) {
